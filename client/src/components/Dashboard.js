@@ -143,7 +143,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            React Docs
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
