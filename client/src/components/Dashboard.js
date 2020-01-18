@@ -23,12 +23,24 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
+import Data from "../pages/data";
+import Home from "../pages/home";
+import Settings from "../pages/settings";
+import Transfer from "../pages/transfer";
+import Approve from "../pages/approve";
+
+import RepeatIcon from '@material-ui/icons/Repeat';
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        React Docs
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -104,7 +116,7 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: 0,
   },
   paper: {
     padding: theme.spacing(2),
@@ -129,8 +141,11 @@ export default function Dashboard() {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
+    <Router>
+
     <div className={classes.root}>
       <CssBaseline />
+
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
@@ -152,6 +167,8 @@ export default function Dashboard() {
           </IconButton>
         </Toolbar>
       </AppBar>
+      
+          
       <Drawer
         variant="permanent"
         classes={{
@@ -170,33 +187,25 @@ export default function Dashboard() {
         <List>{secondaryListItems}</List>
       </Drawer>
       <main className={classes.content}>
+        
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
+        <Route exact path="/data" component={Data} />
+              <Route exact path="/settings" component={Settings} />
+              <Route exact path="/transfer" component={Transfer} />
+              <Route exact path="/approve" component={Approve} />
+              <Route exact path="/" component={Home} />
+
+        {/* <Container maxWidth="lg" className={classes.container}>
+
+      
+        </Container> */}
       </main>
+      <div>
+            
+
+        
     </div>
+    </div>
+          </Router>
   );
 }
