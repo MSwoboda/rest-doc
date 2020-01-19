@@ -25,8 +25,6 @@ class Home extends Component {
   };
 
 
-
-
   render() {
     return (
 
@@ -37,18 +35,18 @@ class Home extends Component {
 
    <Grid container spacing={3}>
           <Grid item xs={12} md={8} lg={9}>
-           
+
 
 
           </Grid>
           <Grid item xs={12} md={4} lg={3}>
-          
+
           </Grid>
           <Grid item xs={12}>
-           
+
           </Grid>
         </Grid>
-    
+
 
       </div>
 

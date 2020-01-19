@@ -9,10 +9,14 @@
     "axios": "^0.18.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-landing-page": "^2.0.2",
     "react-material-ui-carousel": "^1.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1",
-    "recharts": "^2.0.0-beta.1"
+    "rebass": "^3.0.0-12",
+    "recharts": "^2.0.0-beta.1",
+    "styled-components": "^5.0.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

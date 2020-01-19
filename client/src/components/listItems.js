@@ -1,6 +1,5 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,31 +20,31 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 export const mainListItems = (
   <div>
     <List component="nav">
-    <ListItem component={Link} to="/" button>      
+    <ListItem component={Link} to="/user" button>      
       <ListItemIcon>
         <House />
       </ListItemIcon>
       <ListItemText primary="Home" />
     </ListItem>
-    <ListItem component={Link} to="/data" button>      
+    <ListItem component={Link} to="/user/data" button>      
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="My Data" />
     </ListItem>
-    <ListItem component={Link} to="/transfer" button>
+    <ListItem component={Link} to="/user/transfer" button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Transfer" />
     </ListItem>
-    <ListItem component={Link} to="/approve" button>
+    <ListItem component={Link} to="/user/approve" button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Approve" />
     </ListItem>
-    <ListItem component={Link} to="/settings" button>
+    <ListItem component={Link} to="/user/settings" button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
