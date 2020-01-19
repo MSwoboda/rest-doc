@@ -11,8 +11,7 @@ const bookSeed = [
     username: "The Dead Zone",
     email: "Stephen King",
     firstName: "",
-    lastName: "",
-
+    lastName: ""
   }
   
 ];

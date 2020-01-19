@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const User = require("../../models/User");
 
-// Matches with "/api/books"
+// Matches with "/api/accounts/signup"
 router.route("/signup")
     .post(
         (req, res, next) => {
