@@ -8,22 +8,18 @@ import Landing from "./pages/landing"
 
 function App() {
   return (
-    
-   
-      <Router>
-<div>
-         <Route exact path="/" component={Landing} />
-         <Route exact path="/user/:stuff" component={Dashboard} />
-         <Route exact path="/user" component={Dashboard} />
 
+    <Router>
+      <div>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/user/:stuff" component={Dashboard} />
+        <Route exact path="/user" component={Dashboard} />
 
-         <Link to="/user"> User</Link>
-         </div>
+        <Link to="/user"> User</Link>
+      </div>
 
-      </Router>
+    </Router>
 
-
-   
   );
 }
 

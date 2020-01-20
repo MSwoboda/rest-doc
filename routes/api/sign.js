@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const User = require("../../models/User");
-const UserSession = require("../../models/User");
+const UserSession = require("../../models/UserSession");
 
 // Matches with "/api/accounts/signup"
 router.route("/signup")
@@ -130,7 +130,6 @@ router.route("/signin")
                 }
 
                 if (users.length != 1) {
-
                     return res.send({
                         success: false,
                         message: 'Error: invalid'
@@ -138,17 +137,35 @@ router.route("/signin")
                 }
 
                 const user = users[0];
-                if (!user.validPassword(password)){
+                if (!user.validPassword(password)) {
                     return res.send({
                         success: false,
                         message: 'Error: password invalid'
                     });
                 }
 
-                new userSession = new UserSession();
+                const userSession = new UserSession();
+                userSession.userId = user._id;
 
-                    //28:59 vidjeo  https://www.youtube.com/watch?v=s1swJLYxLAA&t=1943s
-            })
+                userSession.save((err, doc) => {
+                    if (err) {
+                        return res.send({
+                            success: false,
+                            message: 'Error: server error'
+                        });
+                    }
+              
+                    return res.send({
+                        success: true,
+                        message: 'Valid sign in',
+                        token: doc._id
+                    })
+                });
+
+                
+
+            });
+
 
         });
 

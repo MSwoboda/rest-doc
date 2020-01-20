@@ -13,13 +13,10 @@ class Data extends Component {
 
   render() {
     return (
-
-
-
-<ScrollableTabsButtonForce/>
+      <ScrollableTabsButtonForce />
 
     );
   }
 }
 
-export default  Data;
+export default Data;
