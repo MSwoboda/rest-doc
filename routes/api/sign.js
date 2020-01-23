@@ -137,6 +137,7 @@ router.route("/signin")
                 }
 
                 const user = users[0];
+
                 if (!user.validPassword(password)) {
                     return res.send({
                         success: false,
@@ -161,8 +162,6 @@ router.route("/signin")
                         token: doc._id
                     })
                 });
-
-                
 
             });
 
