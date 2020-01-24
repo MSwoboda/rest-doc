@@ -1,3 +1,4 @@
+
 const router = require("express").Router();
 
 const User = require("../../models/User");
@@ -203,9 +204,6 @@ router.route("/logout")
 
             const { query } = req;
             const { token } = query;
-
-console.log();
-
 
             UserSession.findOneAndUpdate({
                 _id: token,

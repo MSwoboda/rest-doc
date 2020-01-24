@@ -17,6 +17,7 @@
     "react-mui-login-register": "^0.7.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^2.1.1",
+    "react-text-mask": "^5.4.3",
     "rebass": "^3.0.0-12",
     "recharts": "^2.0.0-beta.1",
     "styled-components": "^5.0.0",
