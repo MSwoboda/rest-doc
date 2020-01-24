@@ -155,7 +155,7 @@ router.route("/signin")
                             message: 'Error: server error'
                         });
                     }
-              
+
                     return res.send({
                         success: true,
                         message: 'Valid sign in',
@@ -164,6 +164,71 @@ router.route("/signin")
                 });
 
             });
+
+
+        });
+
+
+router.route("/verify")
+    .get(
+        (req, res, next) => {
+
+            const { query } = req;
+            const { token } = query;
+
+            UserSession.find({
+                _id: token,
+                isDeleted: false
+            }, (err, sessions) => {
+
+                if (err) {
+                    return res.send({
+                        success: false,
+                        message: 'Error: server error'
+                    })
+                } else {
+                    return res.send({
+                        success: true,
+                        message: 'Good'
+                    })
+                }
+            })
+
+
+        });
+
+router.route("/logout")
+    .get(
+        (req, res, next) => {
+
+            const { query } = req;
+            const { token } = query;
+
+console.log();
+
+
+            UserSession.findOneAndUpdate({
+                _id: token,
+                isDeleted: false
+            }, {
+                $set: {
+                    isDeleted: true
+                }
+            }
+                , null, (err, sessions) => {
+
+                    if (err) {
+                        return res.send({
+                            success: false,
+                            message: 'Error: server error'
+                        })
+                    }
+                    return res.send({
+                        success: true,
+                        message: 'LoggedOut'
+                    })
+
+                })
 
 
         });

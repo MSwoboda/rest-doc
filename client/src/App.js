@@ -12,10 +12,9 @@ function App() {
     <Router>
       <div>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/user/:stuff" component={Dashboard} />
-        <Route exact path="/user" component={Dashboard} />
+        <Route exact path="/home/:stuff" component={Dashboard} />
+        <Route exact path="/home" component={Dashboard} />
 
-        <Link to="/user"> User</Link>
       </div>
 
     </Router>

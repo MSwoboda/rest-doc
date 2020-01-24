@@ -22,7 +22,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MaterialTable from 'material-table';
+import MaterialTableResults from '../components/resultTable';
 
 
 import Fab from '@material-ui/core/Fab';
@@ -123,48 +123,8 @@ export default function Home() {
           <div className="col-12">
             <Divider className="m-3" />
 
-            <MaterialTable
-              title="Editable Example"
-              columns={state.columns}
-              data={state.data}
-              editable={{
-                onRowAdd: newData =>
-                  new Promise(resolve => {
-                    setTimeout(() => {
-                      resolve();
-                      setState(prevState => {
-                        const data = [...prevState.data];
-                        data.push(newData);
-                        return { ...prevState, data };
-                      });
-                    }, 600);
-                  }),
-                onRowUpdate: (newData, oldData) =>
-                  new Promise(resolve => {
-                    setTimeout(() => {
-                      resolve();
-                      if (oldData) {
-                        setState(prevState => {
-                          const data = [...prevState.data];
-                          data[data.indexOf(oldData)] = newData;
-                          return { ...prevState, data };
-                        });
-                      }
-                    }, 600);
-                  }),
-                onRowDelete: oldData =>
-                  new Promise(resolve => {
-                    setTimeout(() => {
-                      resolve();
-                      setState(prevState => {
-                        const data = [...prevState.data];
-                        data.splice(data.indexOf(oldData), 1);
-                        return { ...prevState, data };
-                      });
-                    }, 600);
-                  }),
-              }}
-            />
+            <MaterialTableResults
+             />
 
           </div>
         </div>
@@ -177,27 +137,39 @@ export default function Home() {
 }
 
 const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: 'Goodfellas', year: 1990 },
-  { title: 'The Matrix', year: 1999 },
-  { title: 'Seven Samurai', year: 1954 },
-  { title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-  { title: 'City of God', year: 2002 },
-  { title: 'Se7en', year: 1995 }
+  { title: 'W2', year: 1974 },
+  { title: 'W3', year: 1974 },
+  { title: 'W4', year: 1974 },
+  { title: 'W5', year: 1974 },
+  { title: 'W7', year: 1994 },
+  { title: 'W9', year: 2008 },
+
+  { title: '1099MISC', year: 1972 },
+  { title: '1099K', year: 1972 },
+  { title: '1099C', year: 1972 },
+
+
+  { title: 'LLC - DE', year: 1957 },
+  { title: 'LLC - NJ', year: 2001 }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
+  { title: "LLC - PA", year: 1993 }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
+  
+  { title: 'Divorce - DE', year: 1994 },
+  { title: 'Divorce - NJ', year: 1994 },
+  { title: 'Divorce - PA', year: 1994 },
+
+  { title: 'Driver License - DE', year: 2003 },
+  { title: 'Driver License - NJ', year: 2003 },
+  { title: 'Driver License - PA', year: 2003 },
+
+  { title: 'DL-180', year: 1966 },
+  { title: 'DL-180C', year: 1966 },
+
+  { title: 'LLC - NJ - Dissolution', year: 1999 },
+  { title: 'LLC - DE - Dissolution', year: 1999 },
+  { title: 'LLC - PA - Dissolution', year: 1999 },
+
+  { title: 'Letter of Intent', year: 1966 },
+  { title: 'Biosketch', year: 1995 },
+  { title: 'Resume', year: 1995 }
 ];
 

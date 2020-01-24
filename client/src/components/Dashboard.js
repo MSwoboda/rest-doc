@@ -15,14 +15,22 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-
+import Button from '@material-ui/core/Button';
 import Data from "../pages/data";
 import Home from "../pages/home";
 import Settings from "../pages/settings";
 import Transfer from "../pages/transfer";
 import Approve from "../pages/approve";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, useHistory } from "react-router-dom";
+
+import 'whatwg-fetch';
+import {
+  getFromStorage,
+  setInStorage,
+  
+} from '../utils/auth';
+
 
 const drawerWidth = 240;
 
@@ -106,6 +114,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Dashboard() {
+
+  let history = useHistory();
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -116,6 +127,32 @@ export default function Dashboard() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+if (!getFromStorage('the_main_app').token) {
+  history.push("/");
+}
+
+
+const logOut = () =>{
+
+const obj = getFromStorage('the_main_app');
+
+if (obj && obj.token) {
+  const {token} = obj;
+
+  fetch('/api/account/logout?token='+token)
+    .then(res => res.json())
+    .then(json => {
+      console.log(json.message);
+
+      if (json.success) {
+        setInStorage('the_main_app',{token:''});
+        history.push("/");
+      }
+
+    });
+}
+
+}
   return (
       <div className={classes.root}>
         <CssBaseline />
@@ -132,13 +169,16 @@ export default function Dashboard() {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              React Docs
+              React Docs: {getFromStorage('the_main_app').token}
           </Typography>
-            <IconButton color="inherit">
+
+          <Button variant="contained" onClick ={()=> logOut()}>Logout</Button>
+
+            {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
 
@@ -162,11 +202,11 @@ export default function Dashboard() {
         <main className={classes.content}>
 
           <div className={classes.appBarSpacer} />
-          <Route exact path="/user/data" component={Data} />
-          <Route exact path="/user/settings" component={Settings} />
-          <Route exact path="/user/transfer" component={Transfer} />
-          <Route exact path="/user/approve" component={Approve} />
-          <Route exact path="/user" component={Home} />
+          <Route exact path="/home/data" component={Data} />
+          <Route exact path="/home/settings" component={Settings} />
+          <Route exact path="/home/transfer" component={Transfer} />
+          <Route exact path="/home/upprove" component={Approve} />
+          <Route exact path="/home" component={Home} />
 
         </main>
         <div>
