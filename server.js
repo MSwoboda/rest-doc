@@ -9,6 +9,7 @@ app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+  app.use('./pdf', express.static(__dirname + '/pathToPDF'));
 }
 
 // Add routes, both API and view

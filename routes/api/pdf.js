@@ -7,39 +7,9 @@ const UserSession = require("../../models/UserSession");
 
 // Matches with "/api/doc/signup"
 
-router.route("/generate")
+router.route("/assets")
     .get(
         (req, res, next) => {
-
-            const { query } = req;
-            const { token } = query;
-
-
-
-
-
-            // UserSession.findOneAndUpdate({
-            //     _id: token,
-            //     isDeleted: false
-            // }, {
-            //     $set: {
-            //         isDeleted: true
-            //     }
-            // }
-            //     , null, (err, sessions) => {
-
-            //         if (err) {
-            //             return res.send({
-            //                 success: false,
-            //                 message: 'Error: server error'
-            //             })
-            //         }
-            //         return res.send({
-            //             success: true,
-            //             message: 'LoggedOut'
-            //         })
-
-            //     })
 
 
         });

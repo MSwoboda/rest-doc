@@ -43,7 +43,6 @@ export default function Landing() {
   const classes = useStyles();
 
   
-
   return (
 
     <Grid container component="main" className={classes.root}>

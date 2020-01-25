@@ -19,38 +19,38 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    <List component="nav">
-    <ListItem component={Link} to="/home" button>      
-      <ListItemIcon>
-        <House />
-      </ListItemIcon>
-      <ListItemText primary="Home" />
-    </ListItem>
-    <ListItem component={Link} to="/home/data" button>      
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="My Data" />
-    </ListItem>
-    <ListItem component={Link} to="/home/transfer" button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Transfer" />
-    </ListItem>
-    <ListItem component={Link} to="/home/approve" button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Approve" />
-    </ListItem>
-    <ListItem component={Link} to="/home/settings" button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Settings" />
-    </ListItem>
-    </List>
+      <List component="nav">
+      <ListItem component={Link} to="/home" button>      
+        <ListItemIcon>
+          <House />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+      <ListItem component={Link} to="/home/data" button>      
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="My Data" />
+      </ListItem>
+      <ListItem component={Link} to="/home/transfer" button>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Signature" />
+      </ListItem>
+      {/* {/* <ListItem component={Link} to="/home/approve" button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Approve" />
+      </ListItem> */}
+      <ListItem component={Link} to="/home/settings" button>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Templates" />
+      </ListItem> 
+      </List>
   </div>
 );
 

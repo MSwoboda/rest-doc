@@ -116,8 +116,6 @@ export default function Login() {
   const classes = useStyles();
 
 
-  const [value, setValue] = useState(0);
-
   const [values, setValues] = useState({
 
     firstName: '',
@@ -128,15 +126,17 @@ export default function Login() {
     isLogged: false
   });
 
+  const handleChanges = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
 
-  const handleChanges = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
 
 
   useEffect(() => {

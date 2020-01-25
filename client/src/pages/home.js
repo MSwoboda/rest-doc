@@ -7,42 +7,50 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MaterialTableResults from '../components/resultTable';
-
-
 import Fab from '@material-ui/core/Fab';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
-function generate(element) {
-  return [0, 1, 2].map(value =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+import IconButton from '@material-ui/core/IconButton';
+
+import AlarmIcon from '@material-ui/icons/Alarm';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import EditIcon from '@material-ui/icons/Edit';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import createPDF from '../utils/pdf';
+
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
 }
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    
+
     width: '100%',
     '& > * + *': {
-      marginTop: theme.spacing(1),
+      marginTop: theme.spacing(2),
+
     },
   },
   title: {
@@ -54,47 +62,34 @@ const useStyles = makeStyles(theme => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  table: {
+    minWidth: 250,
+  },
 }));
 
 export default function Home() {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
 
-  const [state, setState] = React.useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-    ],
-    data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
-    ],
-  });
+  const [ docQuery,  setQuery] = React.useState([]);
+
+  const handleChange = (event, newValue) => {
+    setQuery(newValue);
+  };
 
   return (
 
     <Card className="m-3">
       <div className="section ">
+
         <div className="row mt-5 ml-5 mr-2  ">
+
           <div className="col-12 col-md-8 mb-3 ">
             <div className={classes.root}>
-
               <Autocomplete
+                onChange={(event, value) => setQuery(value)}
                 multiple
                 id="tags-outlined"
-                options={top100Films}
+                options={forms}
                 getOptionLabel={option => option.title}
                 defaultValue={[]}
                 filterSelectedOptions
@@ -112,10 +107,17 @@ export default function Home() {
           </div>
           <div className="col-12 col-md-3 mb-3 d-flex justify-content-center ">
             <div className={classes.extendedIcon} >
-              <Fab variant="extended" className={classes.fixedWidth}>
+
+
+
+              {docQuery.length===0 ? <Fab variant="extended" className={classes.fixedWidth}  disabled>
                 <GetAppIcon className={classes.extendedIcon} />
-                Process
-            </Fab>
+                Download
+            </Fab> : <Fab variant="extended" className={classes.fixedWidth}  >
+                <GetAppIcon className={classes.extendedIcon} />
+                Download
+            </Fab>}
+              
             </div>
           </div>
         </div>
@@ -123,8 +125,43 @@ export default function Home() {
           <div className="col-12">
             <Divider className="m-3" />
 
-            <MaterialTableResults
-             />
+            <TableContainer component={Paper}>
+
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Filename</TableCell>
+                    <TableCell align="right">Template</TableCell>
+                    <TableCell align="right">Contents</TableCell>
+                    <TableCell align="right">Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {docQuery.map(row => (
+
+                    <TableRow key={row.title}>
+                      <TableCell component="th" scope="row">
+                        <div className={classes.root}>
+                          {/* <LinearProgress variant="query"  /> */}
+                        </div>
+                      </TableCell>
+
+                      <TableCell align="right">{row.title}</TableCell>
+                      <TableCell align="right">{row.tag}</TableCell>
+                      <TableCell align="right">      <IconButton color="secondary" aria-label="add an alarm">
+                        <EditIcon />
+                      </IconButton>
+                        <IconButton color="primary" aria-label="add to shopping cart">
+                          <DownloadIcon />
+                        </IconButton></TableCell>
+
+
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
 
           </div>
         </div>
@@ -136,40 +173,33 @@ export default function Home() {
   );
 }
 
-const top100Films = [
-  { title: 'W2', year: 1974 },
-  { title: 'W3', year: 1974 },
-  { title: 'W4', year: 1974 },
-  { title: 'W5', year: 1974 },
-  { title: 'W7', year: 1994 },
-  { title: 'W9', year: 2008 },
+const forms = [
+  { title: 'W2', tag: 'w9' },
+  { title: 'W4', tag: 'w4' },
+  { title: 'W7', tag: 'w7' },
+  { title: 'W9', tag: 'w9' },
 
-  { title: '1099MISC', year: 1972 },
-  { title: '1099K', year: 1972 },
-  { title: '1099C', year: 1972 },
+  { title: '1099 - MISC', tag: '1099misc' },
+  { title: '1099 - C', tag: '1099c' },
 
 
-  { title: 'LLC - DE', year: 1957 },
-  { title: 'LLC - NJ', year: 2001 }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
-  { title: "LLC - PA", year: 1993 }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
-  
-  { title: 'Divorce - DE', year: 1994 },
-  { title: 'Divorce - NJ', year: 1994 },
-  { title: 'Divorce - PA', year: 1994 },
+  { title: 'LLC - DE', tag: 'llcde' },
+  { title: 'LLC - NJ', tag: 'llcnj' }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
+  { title: "LLC - PA", tag: 'llcpa' }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
 
-  { title: 'Driver License - DE', year: 2003 },
-  { title: 'Driver License - NJ', year: 2003 },
-  { title: 'Driver License - PA', year: 2003 },
+  { title: 'Driver License - DE', tag: 'driverde' },
+  { title: 'Driver License - NJ', tag: 'drivernj' },
+  { title: 'Driver License - PA', tag: 'driverpa' },
 
-  { title: 'DL-180', year: 1966 },
-  { title: 'DL-180C', year: 1966 },
+  { title: 'DL - 180', tag: 'dl180' },
+  { title: 'DL - 180C', tag: 'dl180c' },
 
-  { title: 'LLC - NJ - Dissolution', year: 1999 },
-  { title: 'LLC - DE - Dissolution', year: 1999 },
-  { title: 'LLC - PA - Dissolution', year: 1999 },
+  { title: 'LLC - NJ - Dissolution', tag: 'nollcnj' },
+  { title: 'LLC - DE - Dissolution', tag: 'nollcde' },
+  { title: 'LLC - PA - Dissolution', tag: 'nollcpa' },
 
-  { title: 'Letter of Intent', year: 1966 },
-  { title: 'Biosketch', year: 1995 },
-  { title: 'Resume', year: 1995 }
+  { title: 'Letter of Intent', tag: 'loi' },
+  { title: 'Biosketch', tag: 'biosketch' },
+  { title: 'Resume', tag: 'resume' }
 ];
 

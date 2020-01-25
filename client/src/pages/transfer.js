@@ -1,22 +1,46 @@
-import React, { Component } from "react";
-// import Jumbotron from "../components/Jumbotron";
-// import API from "../utils/API";
-// import { Col, Row, Container } from "../components/Grid";
-// import { List, ListItem } from "../components/List";
-// import { Input, TextArea, FormBtn } from "../components/Form";
+
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import SignaturePad from 'react-signature-canvas'
+
 
 class Transfer extends Component {
   state = {
   };
 
-  render() {
-    return (
-      // <Container fluid>
-      //   <Row>
-      <div>Transfer</div>
+  state = {trimmedDataURL: null}
+  sigPad = {}
+  clear = () => {
+    this.sigPad.clear()
+  }
+  trim = () => {
+    this.setState({trimmedDataURL: this.sigPad.getTrimmedCanvas()
+      .toDataURL('image/png')})
+  }
 
-      //   </Row>
-      // </Container>
+  render() {
+    let {trimmedDataURL} = this.state
+
+    return (
+      <div >
+      <div >
+        <SignaturePad
+          ref={(ref) => { this.sigPad = ref }} />
+      </div>
+      <div>
+        <button onClick={this.clear}>
+          Clear
+        </button>
+        <button  onClick={this.trim}>
+          Trim
+        </button>
+      </div>
+      {trimmedDataURL
+        ? <img 
+          src={trimmedDataURL} />
+        : null}
+    </div>
+  
     );
   }
 }

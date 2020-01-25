@@ -9,6 +9,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+
 import ThumbDown from '@material-ui/icons/ThumbDown';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
@@ -76,21 +81,25 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    height: '80%',
+    height: '90%',
     backgroundColor: theme.palette.background.paper,
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
       width: 200,
     }
+  }, fab: {
+    position: 'absolute',
+    bottom: theme.spacing(5),
+    right: theme.spacing(5),
   },
 }));
 
 export default function DataTabs() {
   const classes = useStyles();
+  
   const [value, setValue] = React.useState(0);
-
   const [values, setValues] = React.useState({
-    textmask: '(215)    -    ',
+    textmask: '(   )    -    ',
   });
 
   const handleChanges = name => event => {
@@ -105,6 +114,7 @@ export default function DataTabs() {
     setValue(newValue);
   };
 
+  
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -120,68 +130,215 @@ export default function DataTabs() {
           <Tab label="General" icon={<PhoneIcon />} {...a11yProps(0)} />
           <Tab label="Medical" icon={<FavoriteIcon />} {...a11yProps(1)} />
           <Tab label="Professional" icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label="Medical" icon={<HelpIcon />} {...a11yProps(3)} />
+          <Tab label="Travel" icon={<HelpIcon />} {...a11yProps(3)} />
           <Tab label="Safety" icon={<ShoppingBasket />} {...a11yProps(4)} />
-          <Tab label="Legal" icon={<ThumbDown />} {...a11yProps(5)} />
-          <Tab label="Custom" icon={<ThumbUp />} {...a11yProps(6)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={classes.root} noVali type autoComplete="off">
           <div>
 
+            <TextField id="standard-search" label="Title" type="search" style={{ width: 50 }} />
             <TextField id="standard-search" label="First Name" type="search" defaultValue="Michal" />
+            <TextField id="standard-search" label="Middle Name" type="search" defaultValue=" " />
             <TextField id="standard-search" label="Last Name" type="search" defaultValue="Swoboda" />
-            <TextField id="standard-search" label="Middle Initial" type="search" defaultValue=" " />
-
-
-            <TextField id="standard-search" label="Email" type="Email" value="michal.swoboda@outlook.com" style={{ width: 250 }} InputProps={{
-              readOnly: true,
-
-            }} />
-            <TextField id="standard-search" label="First Name" type="search" defaultValue="Michal" />
-            <TextField id="standard-search" label="Last Name" type="search" defaultValue="Swoboda" />
-            <TextField id="standard-search" label="Middle Initial" type="search" defaultValue=" " />
-      
+            <TextField id="standard-search" label="Suffix" type="search" style={{ width: 50 }} />
 
           </div>
 
 
           <div>
-              <InputLabel className="ml-2"   style={{ fontSize: 12 }} >Phone Number</InputLabel>
-              <Input className="ml-2"
+            <TextField id="standard-search" label="Email" type="Email" value="michal.swoboda@outlook.com" style={{ width: 250 }} InputProps={{ readOnly: true, }} />
+            <TextField id="standard-search" label="Secondary Email" type="Email" value="" style={{ width: 250 }} InputProps={{ readOnly: true, }} />
+
+            <TextField id="standard-search" label="SSN" type="search" />
+            <TextField id="standard-search" label="EIN" type="search" />
+
+            <InputLabel className="ml-2 mt-2" style={{ fontSize: 12 }} >Phone Number</InputLabel>
+            <Input className="ml-2 "
+              value={values.textmask}
+              onChange={handleChanges('textmask')}
+              id="formatted-text-mask-input"
+              inputComponent={TextMaskCustom}
+              style={{ height: '80%' }}
+            />
+          </div>
+
+          <Divider className="m-4" />
+
+          <div className="row">
+            <div className="col-4 mr-3 mt-2" style={{ minWidth: 200 }} >
+
+              <Typography variant="subtitle1">Primary Address (Billing)</Typography>
+
+              <TextField id="standard-search" label="Street Name" type="search" value="9 Brewerytown Ct." style={{ width: 200 }} />
+              <TextField id="standard-search" label="Apatartment" type="search" value="N1201" style={{ width: 70 }} />
+              <TextField id="standard-search" label="City" type="search" value="State" style={{ width: 50 }} />
+              <TextField id="standard-search" label="City" type="search" value="City" style={{ width: 100 }} />
+              <TextField id="standard-search" label="ZIP" type="search" value="19121" style={{ width: 80 }} />
+              <TextField
+                id="outlined-multiline-static"
+                label="Address Block"
+
+                multiline
+                rows="4"
+                defaultValue="Default Value"
+                variant="outlined"
+              />
+            </div>
+
+            <div className="col-4 mr-3 mt-2" style={{ minWidth: 200 }} >
+
+              <Typography variant="subtitle1">Secondary Address (Shipping)</Typography>
+
+              <TextField id="standard-search" label="Street Name" type="search" value="9 Brewerytown Ct." style={{ width: 200 }} />
+              <TextField id="standard-search" label="Apatartment" type="search" value="N1201" style={{ width: 70 }} />
+              <TextField id="standard-search" label="City" type="search" value="State" style={{ width: 50 }} />
+              <TextField id="standard-search" label="City" type="search" value="City" style={{ width: 100 }} />
+              <TextField id="standard-search" label="ZIP" type="search" value="19121" style={{ width: 80 }} />
+              <TextField
+                id="outlined-multiline-static"
+                label="Address Block"
+
+                multiline
+                rows="4"
+                defaultValue="Default Value"
+                variant="outlined"
+              />
+            </div>
+          </div>
+        </form>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <div>
+          <TextField id="standard-search" label="Blood Type" type="search" defaultValue="" />
+          <TextField id="standard-search" label="Insurance Number" type="number" defaultValue="" />
+          <TextField id="standard-search" label="Dental Insurance Number" type="number" defaultValue="" />
+          <TextField id="standard-search" label="Eye Insurance Number" type="number" defaultValue="" />
+          <TextField id="standard-search" label="Allergies" type="text" defaultValue="" />
+          <TextField id="standard-search" label="Social" type="texet" defaultValue="" />
+          <Divider className="m-4" />
+
+          <TextField
+            id="outlined-multiline-static"
+            label="Medication"
+            style={{ width: '92%' }}
+            multiline
+            rows="4"
+            defaultValue="Default Value"
+            variant="outlined"
+          />
+          <Divider className="m-4" />
+
+        </div>
+
+        <TextField
+          id="outlined-multiline-static"
+          label="Medical History"
+          style={{ width: '92%' }}
+          multiline
+          rows="4"
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+
+        <TextField
+          id="outlined-multiline-static"
+          label="Family Medical History"
+          style={{ width: '53%' }}
+          multiline
+          rows="4"
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-multiline-static"
+          label="Address"
+          style={{ width: '37%' }}
+          multiline
+          rows="4"
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+
+        <TextField
+          id="outlined-multiline-static"
+          label="Address"
+          style={{ width: '53%' }}
+          multiline
+          rows="4"
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-multiline-static"
+          label="Address"
+          style={{ width: '37%' }}
+          multiline
+          rows="4"
+          defaultValue="Default Value"
+          variant="outlined"
+        />
+
+        <Divider className="m-4" />
+
+
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+
+        <div>
+          <TextField id="standard-search" label="Employer Name" type="search" defaultValue="Michal" />
+          <TextField id="standard-search" label="Contact Last Name" type="search" defaultValue="Swoboda" />
+          <TextField id="standard-search" label="Contact First Name" type="search" defaultValue="Michal" />
+        </div>
+        <div>
+          <TextField id="standard-search" label="Email" type="Email" value="michal.swoboda@outlook.com" style={{ width: 250 }} InputProps={{ readOnly: true, }} />
+          <TextField id="standard-search" label="EIN" type="search" />
+          <TextField id="standard-search" label="DUNS" type="search" />
+
+          <div className="row">
+            <div className="col-4">
+
+
+              <InputLabel className="ml-2 " style={{ fontSize: 12 }} >Phone Number</InputLabel>
+              <Input className="ml-2 "
                 value={values.textmask}
                 onChange={handleChanges('textmask')}
                 id="formatted-text-mask-input"
                 inputComponent={TextMaskCustom}
                 style={{ height: '80%' }}
               />
-</div>
-          <Divider className="m-2" />
 
-          <div>
-            <TextField id="standard-search" label="Last Name" type="search" value="Hello World" />
-            <TextField id="standard-search" label="Last Name" type="search" value="Hello World" />
+            </div>
+            <div className="col-4">
+              <InputLabel className="ml-2 " style={{ fontSize: 12 }} >Fax Number</InputLabel>
+              <Input className="ml-2 "
+                value={values.textmask}
+                onChange={handleChanges('textmask')}
+                id="formatted-text-mask-input"
+                inputComponent={TextMaskCustom}
+                style={{ height: '80%' }}
+              />
 
-
-            <TextField id="standard-search" label="Search field" type="search" />
-
+            </div>
           </div>
+        </div>
 
-          <div>
-            <TextField id="standard-search" label="Last Name" type="search" value="Hello World" />
-            <TextField id="standard-search" label="Last Name" type="search" value="Hello World" />
+        <Divider className="m-4" />
 
+        <div className="row">
+          <div className="col-4 mr-3 mt-2" style={{ minWidth: 200 }} >
 
-            <TextField id="standard-search" label="Search field" type="search" />
+            <Typography variant="subtitle1">Primary Address (Billing)</Typography>
 
-          </div>
-          <div>
-
-
+            <TextField id="standard-search" label="Street Name" type="search" value="9 Brewerytown Ct." style={{ width: 200 }} />
+            <TextField id="standard-search" label="Apatartment" type="search" value="N1201" style={{ width: 70 }} />
+            <TextField id="standard-search" label="City" type="search" value="State" style={{ width: 50 }} />
+            <TextField id="standard-search" label="City" type="search" value="City" style={{ width: 100 }} />
+            <TextField id="standard-search" label="ZIP" type="search" value="19121" style={{ width: 80 }} />
             <TextField
               id="outlined-multiline-static"
-              label="Address"
+              label="Address Block"
 
               multiline
               rows="4"
@@ -189,26 +346,97 @@ export default function DataTabs() {
               variant="outlined"
             />
           </div>
-        </form>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Financial
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Professional
+
+          <div className="col-4 mr-3 mt-2" style={{ minWidth: 200 }} >
+
+            <Typography variant="subtitle1">Secondary Address (Shipping)</Typography>
+
+            <TextField id="standard-search" label="Street Name" type="search" value="9 Brewerytown Ct." style={{ width: 200 }} />
+            <TextField id="standard-search" label="Apatartment" type="search" value="N1201" style={{ width: 70 }} />
+            <TextField id="standard-search" label="City" type="search" value="State" style={{ width: 50 }} />
+            <TextField id="standard-search" label="City" type="search" value="City" style={{ width: 100 }} />
+            <TextField id="standard-search" label="ZIP" type="search" value="19121" style={{ width: 80 }} />
+            <TextField
+              id="outlined-multiline-static"
+              label="Address Block"
+
+              multiline
+              rows="4"
+              defaultValue="Default Value"
+              variant="outlined"
+            />
+          </div>
+        </div>
+
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Medical
+
+        <Typography variant="subtitle1">Driver's License</Typography>
+
+        <TextField id="standard-search" label="License #" type="search" />
+        <TextField id="standard-search" label="State" type="search" />
+        <TextField id="standard-search" label="Expiration  type" type=" type" />
+        <TextField id="standard-search" label=" Date of Issue" type=" type" style={{ width: 100 }} />
+        <Divider className="m-4" />
+
+        <Typography variant="subtitle1">Passport 1</Typography>
+
+        <TextField id="standard-search" label="Passport #" type="search" />
+        <TextField id="standard-search" label="Country" type="search" />
+        <TextField id="standard-type" label="Expiration  type" type=" type" placeholder="01/01/2000" />
+        <TextField id="standard-type" label=" Date of Issue" type=" type" placeholder="01/01/2000" />
+        <Divider className="m-4" />
+
+        <Typography variant="subtitle1">Passport 2</Typography>
+
+        <TextField id="standard-search" label="Passport #" type="search" />
+        <TextField id="standard-search" label="Country" type="search" placeholder="Switzerland" />
+        <TextField id="standard-search" label="Expiration  type" type=" type" placeholder="01/01/2000" />
+        <TextField id="standard-search" label=" Date of Issue" type=" type" placeholder="01/01/2000" />
+        <Divider className="m-4" />
+
       </TabPanel>
+
       <TabPanel value={value} index={4}>
-        Safety
+        <Typography variant="subtitle1">Emergency Contact #1</Typography>
+
+        <div>
+
+          <TextField id="standard-search" label="Title" type="title" style={{ width: 50 }} />
+          <TextField id="standard-search" label="First Name" type="search" defaultValue="Michal" />
+          <TextField id="standard-search" label="Last Name" type="search" defaultValue="Swoboda" />
+          <TextField id="standard-search" label="Relation" type="search" style={{ width: 200 }} />
+          <TextField id="standard-search" label="Email" type="Email" value="michal.swoboda@outlook.com" style={{ width: 250 }} />
+          <TextField id="standard-search" label="Phone Number" type="number"  />
+
+ 
+        </div>
+
+        <Divider className="m-4" />
+
+
+        <Typography variant="subtitle1">Emergency Contact #1</Typography>
+
+        <div>
+
+          <TextField id="standard-search" label="Title" type="title" style={{ width: 50 }} />
+          <TextField id="standard-search" label="First Name" type="search" defaultValue="Michal" />
+          <TextField id="standard-search" label="Last Name" type="search" defaultValue="Swoboda" />
+          <TextField id="standard-search" label="Relation" type="search" style={{ width: 200 }} />
+
+          <TextField id="standard-search" label="Email" type="Email" value="michal.swoboda@outlook.com"  />
+          <TextField id="standard-search" label="Phone Number" type="number"  />
+        </div>
+
+  
+
       </TabPanel>
-      <TabPanel value={value} index={5}>
-        Legal
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Custom
-      </TabPanel>
+      <Fab color="primary" className={classes.fab} aria-label="add">
+  <AddIcon />
+</Fab>
     </div>
   );
 }
+
+
+
