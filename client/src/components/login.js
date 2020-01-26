@@ -101,20 +101,11 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 export default function Login() {
 
-
   let history = useHistory();
-
   const classes = useStyles();
-
 
   const [values, setValues] = useState({
 
@@ -136,9 +127,6 @@ export default function Login() {
     setValue(newValue);
   };
 
-
-
-
   useEffect(() => {
     const obj = getFromStorage('the_main_app');
 
@@ -157,10 +145,7 @@ let token;
         .then(json => {
           if (json.success) {
             console.log('loggedin');
-
             history.push("/home")
-
-
           }
         });
     } else {

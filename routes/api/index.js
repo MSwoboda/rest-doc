@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const signRoutes = require("./sign");
-const docRoutes = require("./pdf");
+const dataRoutes = require("./data");
 
 // Book routes
 router.use("/account", signRoutes);
-router.use("/doc", docRoutes);
+router.use("/data", dataRoutes);
 
 module.exports = router;

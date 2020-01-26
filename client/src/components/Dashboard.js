@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -28,10 +29,10 @@ import {
   
 } from '../utils/auth';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
+ 
   root: {
     display: 'flex',
   },
@@ -113,9 +114,11 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
 
   let history = useHistory();
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [firstName, setfirstName] = React.useState('');
+  const [lastName, setlastName] = React.useState('');
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,6 +131,22 @@ if (!getFromStorage('the_main_app').token) {
   history.push("/");
 }
 
+
+useEffect(() => {
+  const obj = getFromStorage('the_main_app');
+  const {token} = obj;
+
+  fetch('../api/data/user?token=' + token)
+    .then( res => res.json() )
+    .then(json => {
+     
+      if (json.success) {
+        setfirstName(json.body[0].firstName)
+        setlastName(json.body[0].lastName)
+
+      }
+    });
+}, []);
 
 const logOut = () =>{
 
@@ -166,7 +185,7 @@ if (obj && obj.token) {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              React Docs: {getFromStorage('the_main_app').token}
+              {firstName}  {lastName}
           </Typography>
 
           <Button variant="contained" onClick ={()=> logOut()}>Logout</Button>

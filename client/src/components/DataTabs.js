@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,10 +12,6 @@ import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-
-
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -25,7 +21,13 @@ import Divider from '@material-ui/core/Divider';
 
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import CircularIntegration from '../components/loadFab'
+
+import 'whatwg-fetch';
+import {
+  getFromStorage,
+  setInStorage,
+} from '../utils/auth';
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -96,102 +98,99 @@ const useStyles = makeStyles(theme => ({
 
 export default function DataTabs() {
   const classes = useStyles();
-  
+
   const [value, setValue] = React.useState(0);
   const [values, setValues] = React.useState({
-    title:'',
-    firstName:'',
-    middleName:'',
-    lastName:'',
-    suffix:'',
-    email:'',
-    secondaryEmail:'',
-    ssn:'',
-    ein:'',
-    phone:'(   )    -    ',
+    title: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    suffix: '',
+    email: '',
+    secondaryEmail: '',
+    ssn: '',
+    ein: '',
+    phone: '(   )    -    ',
 
-    billStreet:'',
-    billApt:'',
-    billState:'',
-    billCity:'',
-    billState:'',
-    billZip:'',
+    billStreet: '',
+    billApt: '',
+    billState: '',
+    billCity: '',
+    billZip: '',
 
-    shipStreet:'',
-    shipApt:'',
-    shipState:'',
-    shipCity:'',
-    shipState:'',
-    shipZip:'',
+    shipStreet: '',
+    shipApt: '',
+    shipState: '',
+    shipCity: '',
+    shipState: '',
+    shipZip: '',
 
-    blood:'',
-    insurance:'',
-    dental:'',
-    eye:'',
-    allergies:'',
-    social:'',
-    medication:'',
-    mHist:'',
-    famHist:'',
-    surgicalHist:'',
-    travelHist:'',
-    socialHistory:'',
+    blood: '',
+    insurance: '',
+    dental: '',
+    eye: '',
+    allergies: '',
+    social: '',
+    medication: '',
+    mHist: '',
+    famHist: '',
+    surgicalHist: '',
+    travelHist: '',
+    socialHistory: '',
 
-    empName:'',
-    empContFirst:'',
-    empContLast:'',
-    empConEmail:'',
-    empEIN:'',
-    empDUNS:'',
-    empPhone:'(   )    -    ',
-    empFax:'(   )    -    ',
+    empName: '',
+    empContFirst: '',
+    empContLast: '',
+    empConEmail: '',
+    empEIN: '',
+    empDUNS: '',
+    empPhone: '(   )    -    ',
+    empFax: '(   )    -    ',
 
-    empBillStreet:'',
-    empBillApt:'',
-    empBillCity:'',
-    empBillState:'',
-    empBillZip:'',
+    empBillStreet: '',
+    empBillApt: '',
+    empBillCity: '',
+    empBillState: '',
+    empBillZip: '',
 
-    empShipStreet:'',
-    empShipApt:'',
-    empShipCity:'',
-    empShipState:'',
-    empShipZip:'',
+    empShipStreet: '',
+    empShipApt: '',
+    empShipCity: '',
+    empShipState: '',
+    empShipZip: '',
 
-    driver:'',
-    driverState:'',
-    driverExp:'',
-    driverIssue:'',
+    driver: '',
+    driverState: '',
+    driverExp: '',
+    driverIssue: '',
 
-    passport:'',
-    passportState:'',
-    passportExp:'',
-    passportIssue:'',
+    passport: '',
+    passportState: '',
+    passportExp: '',
+    passportIssue: '',
 
-    passportTwo:'',
-    passportTwoState:'',
-    passportTwoExp:'',
-    passportTwoIssue:'',
+    passportTwo: '',
+    passportTwoState: '',
+    passportTwoExp: '',
+    passportTwoIssue: '',
 
-    conOneTitle:'',
-    conOneFirst:'',
-    conOneLast:'',
-    conOneRelation:'',
-    conOneEmail:'',
-    conOnePhone:'(   )    -    ',
+    conOneTitle: '',
+    conOneFirst: '',
+    conOneLast: '',
+    conOneRelation: '',
+    conOneEmail: '',
+    conOnePhone: '(   )    -    ',
 
-    conTwoTitle:'',
-    conTwoFirst:'',
-    conTwoLast:'',
-    conTwoRelation:'',
-    conTwoEmail:'',
-    conTwoPhone:'(   )    -    ',
+    conTwoTitle: '',
+    conTwoFirst: '',
+    conTwoLast: '',
+    conTwoRelation: '',
+    conTwoEmail: '',
+    conTwoPhone: '(   )    -    ',
 
   });
 
   const handleChanges = name => event => {
-    console.log(event.target.value);
-    
     setValues({
       ...values,
       [name]: event.target.value,
@@ -203,7 +202,51 @@ export default function DataTabs() {
     setValue(newValue);
   };
 
-  
+const handleSaveData = () =>{
+
+  const obj = getFromStorage('the_main_app');
+  const {token} = obj;
+
+  fetch('/api/data/user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      token: token,
+      ...values
+    })
+  })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json.message);
+
+      if (json.success) {
+
+
+      }
+
+    });
+
+};
+
+
+  useEffect(() => {
+    const obj = getFromStorage('the_main_app');
+
+    const {token} = obj;
+
+    fetch('../api/data/user?token=' + token)
+      .then( res => res.json() )
+      .then(json => {
+       
+        if (json.success) {
+          let valsOut = json.body[0];
+          setValues(valsOut);
+        }
+      });
+  }, []);
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -224,24 +267,24 @@ export default function DataTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <form className={classes.root}  type autoComplete="off">
+        <form className={classes.root} type autoComplete="off">
           <div>
 
-            <TextField id="standard-search" value={values.title} onChange={handleChanges('title')} label="Title" type="search" style={{ width: 50 }} />
-            <TextField id="standard-search" value={values.firstName} onChange={handleChanges('firstName')} label="First Name" type="name"  />
-            <TextField id="standard-search" value={values.middleName} onChange={handleChanges('middleName')} label="Middle Name" type="search" />
+            <TextField id="standard-search" value={values.title} onChange={handleChanges('title')} label="Title" type="title" style={{ width: 50 }} />
+            <TextField id="standard-search" value={values.firstName} onChange={handleChanges('firstName')} label="First Name" type="name" />
+            <TextField id="standard-search" value={values.middleName} onChange={handleChanges('middleName')} label="Middle Name" type="search"  style={{ width: 50 }} />
             <TextField id="standard-search" value={values.lastName} onChange={handleChanges('lastName')} label="Last Name" type="last" />
-            <TextField id="standard-search" value={values.title} onChange={handleChanges('title')} label="Suffix" type="search" style={{ width: 50 }} />
+            <TextField id="standard-search" value={values.suffix} onChange={handleChanges('suffix')} label="Suffix" type="search" style={{ width: 50 }} />
 
           </div>
 
 
           <div>
-            <TextField id="standard-search" label="Email" type="Email" value={values.email}  style={{ width: 250 }} InputProps={{ readOnly: true, }} />
-            <TextField id="standard-search" label="Secondary Email" type="Email" value={values.secondaryEmail} onChange={handleChanges('secondaryEmail')} style={{ width: 250 }} InputProps={{ readOnly: true, }} />
+            <TextField id="standard-search" label="Email" type="Email" value={values.email} style={{ width: 250 }} InputProps={{ readOnly: true, }} />
+            <TextField id="standard-search" label="Secondary Email" type="Email" value={values.secondaryEmail} onChange={handleChanges('secondaryEmail')} style={{ width: 250 }} />
 
-            <TextField id="standard-search" label="SSN" type="search" value={values.ssn} onChange={handleChanges('ssn')}  />
-            <TextField id="standard-search" label="EIN" type="search" value={values.ein} onChange={handleChanges('ein')}  />
+            <TextField id="standard-search" label="SSN" type="search" value={values.ssn} onChange={handleChanges('ssn')}  style={{ width:100}}/>
+            <TextField id="standard-search" label="EIN" type="search" value={values.ein} onChange={handleChanges('ein')} style={{ width:100}} />
 
             <InputLabel className="ml-2 mt-2" style={{ fontSize: 12 }} >Phone Number</InputLabel>
             <Input className="ml-2 "
@@ -260,11 +303,11 @@ export default function DataTabs() {
 
               <Typography variant="subtitle1">Primary Address (Billing)</Typography>
 
-              <TextField id="standard-search"  value={values.billStreet} onChange={handleChanges('billStreet')} label="Street Name" type="search"style={{ width: 200 }} />
-              <TextField id="standard-search" label="Apt" type="text"   value={values.billApt} onChange={handleChanges('billApt')} style={{ width: 70 }} />
-              <TextField id="standard-search" label="State" type="text"  value={values.bilState} onChange={handleChanges('billState')} style={{ width: 50 }} />
-              <TextField id="standard-search" label="City" type="text"  value={values.billCity} onChange={handleChanges('billCity')} style={{ width: 100 }} />
-              <TextField id="standard-search" label="Zip" type="number"  value={values.billZip} onChange={handleChanges('billZip')} style={{ width: 80 }} />
+              <TextField id="standard-search" value={values.billStreet} onChange={handleChanges('billStreet')} label="Street Name" type="search" style={{ width: 200 }} />
+              <TextField id="standard-search" label="Apt" type="text" value={values.billApt} onChange={handleChanges('billApt')} style={{ width: 70 }} />
+              <TextField id="standard-search" label="State" type="text" value={values.billState} onChange={handleChanges('billState')} style={{ width: 50 }} />
+              <TextField id="standard-search" label="City" type="text" value={values.billCity} onChange={handleChanges('billCity')} style={{ width: 100 }} />
+              <TextField id="standard-search" label="Zip" type="number" value={values.billZip} onChange={handleChanges('billZip')} style={{ width: 80 }} />
               <TextField
                 id="outlined-multiline-static"
                 label="Address Block"
@@ -278,11 +321,11 @@ export default function DataTabs() {
 
               <Typography variant="subtitle1">Secondary Address (Shipping)</Typography>
 
-              <TextField id="standard-search"  value={values.shipStreet} onChange={handleChanges('shipStreet')} label="Street Name" type="search" style={{ width: 200 }} />
-              <TextField id="standard-search" label="Apt" type="text"   value={values.shipApt} onChange={handleChanges('shipApt')} style={{ width: 70 }} />
-              <TextField id="standard-search" label="State" type="text"  value={values.bilState} onChange={handleChanges('shipState')} style={{ width: 50 }} />
-              <TextField id="standard-search" label="City" type="text"  value={values.shipCity} onChange={handleChanges('shipCity')} style={{ width: 100 }} />
-              <TextField id="standard-search" label="Zip" type="number"  value={values.shipZip} onChange={handleChanges('shipZip')} style={{ width: 80 }} />
+              <TextField id="standard-search" value={values.shipStreet} onChange={handleChanges('shipStreet')} label="Street Name" type="search" style={{ width: 200 }} />
+              <TextField id="standard-search" label="Apt" type="text" value={values.shipApt} onChange={handleChanges('shipApt')} style={{ width: 70 }} />
+              <TextField id="standard-search" label="State" type="text" value={values.bilState} onChange={handleChanges('shipState')} style={{ width: 50 }} />
+              <TextField id="standard-search" label="City" type="text" value={values.shipCity} onChange={handleChanges('shipCity')} style={{ width: 100 }} />
+              <TextField id="standard-search" label="Zip" type="number" value={values.shipZip} onChange={handleChanges('shipZip')} style={{ width: 80 }} />
               <TextField
                 id="outlined-multiline-static"
                 label="Address Block"
@@ -308,7 +351,7 @@ export default function DataTabs() {
           <TextField
             id="outlined-multiline-static"
             label="Medication"
-            value={values.medication} 
+            value={values.medication}
             onChange={handleChanges('medication')}
             style={{ width: '92%' }}
             multiline
@@ -322,7 +365,7 @@ export default function DataTabs() {
         <TextField
           id="outlined-multiline-static"
           label="Medical History"
-          value={values.mHist} 
+          value={values.mHist}
           onChange={handleChanges('mHist')}
           style={{ width: '92%' }}
           multiline
@@ -333,7 +376,7 @@ export default function DataTabs() {
         <TextField
           id="outlined-multiline-static"
           label="Family Medical History"
-          value={values.famHist} 
+          value={values.famHist}
           onChange={handleChanges('famHist')}
           style={{ width: '53%' }}
           multiline
@@ -343,7 +386,7 @@ export default function DataTabs() {
         <TextField
           id="outlined-multiline-static"
           label="Surgical"
-          value={values.surgicalHist} 
+          value={values.surgicalHist}
           onChange={handleChanges('surgicalHist')}
           style={{ width: '37%' }}
           multiline
@@ -354,7 +397,7 @@ export default function DataTabs() {
         <TextField
           id="outlined-multiline-static"
           label="Social History"
-          value={values.socialHistory} 
+          value={values.socialHistory}
           onChange={handleChanges('socialHistory')}
           style={{ width: '53%' }}
           multiline
@@ -364,7 +407,7 @@ export default function DataTabs() {
         <TextField
           id="outlined-multiline-static"
           label="Travel History"
-          value={values.travelHist} 
+          value={values.travelHist}
           onChange={handleChanges('travelHist')}
           style={{ width: '37%' }}
           multiline
@@ -380,13 +423,13 @@ export default function DataTabs() {
       <TabPanel value={value} index={2}>
 
         <div>
-          <TextField id="standard-search" label="Employer Name" type="search"      value={values.empName} onChange={handleChanges('empName')} />
-          <TextField id="standard-search" label="Contact Last Name" type="search"  value={values.empContFirst} onChange={handleChanges('empContFirst')} />
+          <TextField id="standard-search" label="Employer Name" type="search" value={values.empName} onChange={handleChanges('empName')} />
+          <TextField id="standard-search" label="Contact Last Name" type="search" value={values.empContFirst} onChange={handleChanges('empContFirst')} />
           <TextField id="standard-search" label="Contact First Name" type="search" value={values.empContLast} onChange={handleChanges('empContLast')} />
         </div>
         <div>
-          <TextField id="standard-search" label="Email" type="Email"  style={{ width: 250 }} InputProps={{ readOnly: true, }} value={values.empConEmail} onChange={handleChanges('empConEmail')} />
-          <TextField id="standard-search" label="EIN" type="search" value={values.empEIN} onChange={handleChanges('empEIN')}/>
+          <TextField id="standard-search" label="Email" type="Email" style={{ width: 250 }} InputProps={{ readOnly: true, }} value={values.empConEmail} onChange={handleChanges('empConEmail')} />
+          <TextField id="standard-search" label="EIN" type="search" value={values.empEIN} onChange={handleChanges('empEIN')} />
           <TextField id="standard-search" label="DUNS" type="search" value={values.empDUNS} onChange={handleChanges('empDUNS')} />
 
           <div className="row">
@@ -424,12 +467,12 @@ export default function DataTabs() {
 
             <Typography variant="subtitle1">Primary Address (Billing)</Typography>
 
-            <TextField id="standard-search" label="Street Name" type="search" style={{ width: 200 }} value={values.empBillStreet} onChange={handleChanges('empBillStreet')}/>
-            <TextField id="standard-search" label="Apatartment" type="search" style={{ width: 70 }} value={values.empBillApt} onChange={handleChanges('empBillApt')}/>
-            <TextField id="standard-search" label="State" type="search" style={{ width: 50 }} value={values.empBillState} onChange={handleChanges('empBillState')}/>
-            <TextField id="standard-search" label="City" type="search" style={{ width: 100 }} value={values.empBillCity} onChange={handleChanges('empBillCiy')}/>
-            <TextField id="standard-search" label="ZIP" type="search"  style={{ width: 80 }} value={values.empBillZip} onChange={handleChanges('empBillZip')}/>
-            <TextField 
+            <TextField id="standard-search" label="Street Name" type="search" style={{ width: 200 }} value={values.empBillStreet} onChange={handleChanges('empBillStreet')} />
+            <TextField id="standard-search" label="Apatartment" type="search" style={{ width: 70 }} value={values.empBillApt} onChange={handleChanges('empBillApt')} />
+            <TextField id="standard-search" label="State" type="search" style={{ width: 50 }} value={values.empBillState} onChange={handleChanges('empBillState')} />
+            <TextField id="standard-search" label="City" type="search" style={{ width: 100 }} value={values.empBillCity} onChange={handleChanges('empBillCiy')} />
+            <TextField id="standard-search" label="ZIP" type="search" style={{ width: 80 }} value={values.empBillZip} onChange={handleChanges('empBillZip')} />
+            <TextField
               id="outlined-multiline-static"
               label="Address Block"
 
@@ -444,10 +487,10 @@ export default function DataTabs() {
 
             <Typography variant="subtitle1">Secondary Address (Shipping)</Typography>
 
-            <TextField id="standard-search" value={values.empShipStreet} onChange={handleChanges('empShipStreet')} label="Street Name" type="search"  style={{ width: 200 }} />
+            <TextField id="standard-search" value={values.empShipStreet} onChange={handleChanges('empShipStreet')} label="Street Name" type="search" style={{ width: 200 }} />
             <TextField id="standard-search" value={values.empShipApt} onChange={handleChanges('empShipApt')} label="Apatartment" type="search" style={{ width: 70 }} />
-            <TextField id="standard-search" value={values.empShipState} onChange={handleChanges('empShipState')} label="State" type="search"  style={{ width: 50 }} />
-            <TextField id="standard-search" value={values.empShipCity} onChange={handleChanges('empShipCity')}label="City" type="search"  style={{ width: 100 }} />
+            <TextField id="standard-search" value={values.empShipState} onChange={handleChanges('empShipState')} label="State" type="search" style={{ width: 50 }} />
+            <TextField id="standard-search" value={values.empShipCity} onChange={handleChanges('empShipCity')} label="City" type="search" style={{ width: 100 }} />
             <TextField id="standard-search" value={values.empShipZip} onChange={handleChanges('empShipZip')} label="ZIP" type="search" value="19121" style={{ width: 80 }} />
             <TextField
               id="outlined-multiline-static"
@@ -474,17 +517,17 @@ export default function DataTabs() {
 
         <Typography variant="subtitle1">Passport 1</Typography>
 
-        <TextField id="standard-search"  value={values.passport} onChange={handleChanges('passport')} label="Passport #" type="search" />
-        <TextField id="standard-search"  value={values.passportState} onChange={handleChanges('passportState')}label="Country" type="search" />
-        <TextField id="standard-type"    value={values.passportExp} onChange={handleChanges('passportExp')} label="Expiration  type" type=" type" placeholder="01/01/2000" />
-        <TextField id="standard-type"    value={values.passportIssue} onChange={handleChanges('passportIssue')} label=" Date of Issue" type=" type" placeholder="01/01/2000" />
+        <TextField id="standard-search" value={values.passport} onChange={handleChanges('passport')} label="Passport #" type="search" />
+        <TextField id="standard-search" value={values.passportState} onChange={handleChanges('passportState')} label="Country" type="search" />
+        <TextField id="standard-type" value={values.passportExp} onChange={handleChanges('passportExp')} label="Expiration  type" type=" type" placeholder="01/01/2000" />
+        <TextField id="standard-type" value={values.passportIssue} onChange={handleChanges('passportIssue')} label=" Date of Issue" type=" type" placeholder="01/01/2000" />
         <Divider className="m-4" />
 
         <Typography variant="subtitle1">Passport 2</Typography>
 
-        <TextField id="standard-search" value={values.passportTwo} onChange={handleChanges('passportTwo')}  label="Passport #" type="search" />
+        <TextField id="standard-search" value={values.passportTwo} onChange={handleChanges('passportTwo')} label="Passport #" type="search" />
         <TextField id="standard-search" value={values.passportTwoState} onChange={handleChanges('passportTwoState')} label="Country" type="search" placeholder="Switzerland" />
-        <TextField id="standard-search" value={values.passportTwoExp} onChange={handleChanges('passportTwoExp')}  label="Expiration  type" type=" type" placeholder="01/01/2000" />
+        <TextField id="standard-search" value={values.passportTwoExp} onChange={handleChanges('passportTwoExp')} label="Expiration  type" type=" type" placeholder="01/01/2000" />
         <TextField id="standard-search" value={values.passportTwoIssue} onChange={handleChanges('passportTwoIssue')} label=" Date of Issue" type=" type" placeholder="01/01/2000" />
         <Divider className="m-4" />
 
@@ -495,14 +538,14 @@ export default function DataTabs() {
 
         <div>
 
-          <TextField id="standard-search"  value={values.conOneTitle} onChange={handleChanges('conOneTitle')} label="Title" type="title" style={{ width: 50 }} />
-          <TextField id="standard-search"  value={values.conOneFirst} onChange={handleChanges('conOneFirst')} label="First Name" type="search" defaultValue="Michal" />
-          <TextField id="standard-search"  value={values.conOneLast} onChange={handleChanges('conOneLast')} label="Last Name" type="search" defaultValue="Swoboda" />
-          <TextField id="standard-search"  value={values.conOneRelation} onChange={handleChanges('conOneRelation')} label="Relation" type="search" style={{ width: 200 }} />
-          <TextField id="standard-search"  value={values.conOneEmail} onChange={handleChanges('conOneEmail')} label="Email" type="Email"   />
-          <TextField id="standard-search"  value={values.conOneNumber} onChange={handleChanges('conOneNumber')} label="Phone Number" type="number"  />
+          <TextField id="standard-search" value={values.conOneTitle} onChange={handleChanges('conOneTitle')} label="Title" type="title" style={{ width: 50 }} />
+          <TextField id="standard-search" value={values.conOneFirst} onChange={handleChanges('conOneFirst')} label="First Name" type="search"  />
+          <TextField id="standard-search" value={values.conOneLast} onChange={handleChanges('conOneLast')} label="Last Name" type="search"  />
+          <TextField id="standard-search" value={values.conOneRelation} onChange={handleChanges('conOneRelation')} label="Relation" type="search" style={{ width: 100 }} />
+          <TextField id="standard-search" value={values.conOneEmail} onChange={handleChanges('conOneEmail')} label="Email" type="Email" />
+          <TextField id="standard-search" value={values.conOneNumber} onChange={handleChanges('conOneNumber')} label="Phone Number" type="number" />
 
- 
+
         </div>
 
         <Divider className="m-4" />
@@ -512,20 +555,26 @@ export default function DataTabs() {
 
         <div>
 
-          <TextField id="standard-search" value={values.conTwoTitle}     onChange={handleChanges('conTwoTitle')} label="Title" type="title" style={{ width: 50 }} />
-          <TextField id="standard-search" value={values.conTwoFirst}     onChange={handleChanges('conTwoFirst')} label="First Name" type="search"  />
-          <TextField id="standard-search" value={values.conTwoLast}      onChange={handleChanges('conTwoLast')} label="Last Name" type="search"  />
-          <TextField id="standard-search" value={values.conTwoRelation}  onChange={handleChanges('conTwoRelation')} label="Relation" type="search" style={{ width: 200 }} />
-          <TextField id="standard-search" value={values.conTwoEmail}     onChange={handleChanges('conTwoEmail')} label="Email" type="Email" style={{ width: 250 }}/>
-          <TextField id="standard-search" value={values.conTwoNumber}    onChange={handleChanges('conTwoNumber')} label="Phone Number" type="number"  />
+          <TextField id="standard-search" value={values.conTwoTitle} onChange={handleChanges('conTwoTitle')} label="Title" type="title" style={{ width: 50 }} />
+          <TextField id="standard-search" value={values.conTwoFirst} onChange={handleChanges('conTwoFirst')} label="First Name" type="search" />
+          <TextField id="standard-search" value={values.conTwoLast} onChange={handleChanges('conTwoLast')} label="Last Name" type="search" />
+          <TextField id="standard-search" value={values.conTwoRelation} onChange={handleChanges('conTwoRelation')} label="Relation" type="search" style={{ width: 100 }} />
+          <TextField id="standard-search" value={values.conTwoEmail} onChange={handleChanges('conTwoEmail')} label="Email" type="Email"  />
+          <TextField id="standard-search" value={values.conTwoNumber} onChange={handleChanges('conTwoNumber')} label="Phone Number" type="number" />
         </div>
 
-  
+
 
       </TabPanel>
-      <Fab color="primary" className={classes.fab} aria-label="add">
-  <AddIcon />
-</Fab>
+
+
+      <CircularIntegration color="primary" className={classes.fab} onClick ={()=> handleSaveData()} aria-label="add"/>
+
+
+      
+      {/* <Fab color="primary" className={classes.fab} onClick ={()=> handleSaveData()} aria-label="add">
+        <AddIcon />
+      </Fab> */}
     </div>
   );
 }
