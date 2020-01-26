@@ -134,7 +134,29 @@ export default function DataTabs() {
     medication:'',
     mHist:'',
     famHist:'',
+    surgicalHist:'',
+    travelHist:'',
 
+    empName:'',
+    empContFist:'',
+    empContLast:'',
+    empConEmail:'',
+    empEIN:'',
+    empDUNS:'',
+    empPhone:'',
+    empFax:'',
+
+    empBillStreet:'',
+    empBillApt:'',
+    empBillCity:'',
+    empBillState:'',
+    empBillZip:'',
+    
+    empShipStreet:'',
+    empShipApt:'',
+    empShipCity:'',
+    empShipState:'',
+    empShipZip:'',
 
   });
 
