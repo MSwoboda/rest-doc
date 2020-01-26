@@ -142,11 +142,13 @@ export default function Login() {
   useEffect(() => {
     const obj = getFromStorage('the_main_app');
 
+let token;
+
     try {
-      const {token} = obj;
+     const  {token} = obj;
 
     } catch (error) {
-      token ='';
+       token ='';
     }
 
     if (token) {

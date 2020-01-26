@@ -102,8 +102,40 @@ export default function DataTabs() {
     textmask: '(   )    -    ',
     title:'',
     firstName:'',
-    middleName:''
-    
+    middleName:'',
+    lastName:'',
+    suffix:'',
+    email:'',
+    secondaryEmail:'',
+    ssn:'',
+    ein:'',
+    phone:'',
+
+    billStreet:'',
+    billApt:'',
+    billState:'',
+    billCity:'',
+    billState:'',
+    billZip:'',
+
+    shipStreet:'',
+    shipApt:'',
+    shipState:'',
+    shipCity:'',
+    shipState:'',
+    shipZip:'',
+
+    blood:'',
+    insurance:'',
+    dental:'',
+    eye:'',
+    allergies:'',
+    social:'',
+    medication:'',
+    mHist:'',
+    famHist:'',
+
+
   });
 
   const handleChanges = name => event => {
@@ -257,7 +289,7 @@ export default function DataTabs() {
         />
         <TextField
           id="outlined-multiline-static"
-          label="Address"
+          label="Surgical"
           style={{ width: '37%' }}
           multiline
           rows="4"
@@ -267,7 +299,7 @@ export default function DataTabs() {
 
         <TextField
           id="outlined-multiline-static"
-          label="Address"
+          label="Social History"
           style={{ width: '53%' }}
           multiline
           rows="4"
@@ -276,7 +308,7 @@ export default function DataTabs() {
         />
         <TextField
           id="outlined-multiline-static"
-          label="Address"
+          label="Travel History"
           style={{ width: '37%' }}
           multiline
           rows="4"
