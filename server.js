@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/restdoc");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/restdoc", {useNewUrlParser: true});
 
 app.listen(PORT, () => console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`));
 

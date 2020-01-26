@@ -141,7 +141,13 @@ export default function Login() {
 
   useEffect(() => {
     const obj = getFromStorage('the_main_app');
-    const {token} = obj;
+
+    try {
+      const {token} = obj;
+
+    } catch (error) {
+      token ='';
+    }
 
     if (token) {
       fetch('/api/account/verify?token=' + token)
