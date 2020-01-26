@@ -151,12 +151,41 @@ export default function DataTabs() {
     empBillCity:'',
     empBillState:'',
     empBillZip:'',
-    
+
     empShipStreet:'',
     empShipApt:'',
     empShipCity:'',
     empShipState:'',
     empShipZip:'',
+
+    driver:'',
+    driverState:'',
+    driverExp:'',
+    driverIssue:'',
+
+    passport:'',
+    passportState:'',
+    passportExp:'',
+    passportIssue:'',
+
+    passportTwo:'',
+    passportTwoState:'',
+    passportTwoExp:'',
+    passportTwoIssue:'',
+
+    conOneTitle:'',
+    conOneFirst:'',
+    conOneLast:'',
+    conOneRelation:'',
+    conOneEmail:'',
+    conOnePhone:'',
+
+    conTwoTitle:'',
+    conTwoFirst:'',
+    conTwoLast:'',
+    conTwoRelation:'',
+    conTwoEmail:'',
+    conTwoPhone:'',
 
   });
 
