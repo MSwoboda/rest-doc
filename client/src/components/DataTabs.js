@@ -100,6 +100,10 @@ export default function DataTabs() {
   const [value, setValue] = React.useState(0);
   const [values, setValues] = React.useState({
     textmask: '(   )    -    ',
+    title:'',
+    firstName:'',
+    middleName:''
+    
   });
 
   const handleChanges = name => event => {
