@@ -7,6 +7,7 @@ import download from 'downloadjs';
 
 
 export default async function createPDF(type, data) {
+console.log("hello");
 
     if (!type) {
         type = 'w9'

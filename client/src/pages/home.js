@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 
 /* eslint-disable no-use-before-define */
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -29,6 +29,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import createPDF from '../utils/pdf';
+
+import 'whatwg-fetch';
+import {
+  getFromStorage,
+  setInStorage,
+} from '../utils/auth';
+
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -70,7 +77,114 @@ const useStyles = makeStyles(theme => ({
 export default function Home() {
   const classes = useStyles();
 
-  const [ docQuery,  setQuery] = React.useState([]);
+  const [docQuery, setQuery] = React.useState([]);
+
+  const [values, setValues] = React.useState({
+    title: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    suffix: '',
+    email: '',
+    secondaryEmail: '',
+    ssn: '',
+    ein: '',
+    phone: '(   )    -    ',
+
+    billStreet: '',
+    billApt: '',
+    billState: '',
+    billCity: '',
+    billZip: '',
+
+    shipStreet: '',
+    shipApt: '',
+    shipState: '',
+    shipCity: '',
+    shipState: '',
+    shipZip: '',
+
+    blood: '',
+    insurance: '',
+    dental: '',
+    eye: '',
+    allergies: '',
+    social: '',
+    medication: '',
+    mHist: '',
+    famHist: '',
+    surgicalHist: '',
+    travelHist: '',
+    socialHistory: '',
+
+    empName: '',
+    empContFirst: '',
+    empContLast: '',
+    empConEmail: '',
+    empEIN: '',
+    empDUNS: '',
+    empPhone: '(   )    -    ',
+    empFax: '(   )    -    ',
+
+    empBillStreet: '',
+    empBillApt: '',
+    empBillCity: '',
+    empBillState: '',
+    empBillZip: '',
+
+    empShipStreet: '',
+    empShipApt: '',
+    empShipCity: '',
+    empShipState: '',
+    empShipZip: '',
+
+    driver: '',
+    driverState: '',
+    driverExp: '',
+    driverIssue: '',
+
+    passport: '',
+    passportState: '',
+    passportExp: '',
+    passportIssue: '',
+
+    passportTwo: '',
+    passportTwoState: '',
+    passportTwoExp: '',
+    passportTwoIssue: '',
+
+    conOneTitle: '',
+    conOneFirst: '',
+    conOneLast: '',
+    conOneRelation: '',
+    conOneEmail: '',
+    conOnePhone: '(   )    -    ',
+
+    conTwoTitle: '',
+    conTwoFirst: '',
+    conTwoLast: '',
+    conTwoRelation: '',
+    conTwoEmail: '',
+    conTwoPhone: '(   )    -    ',
+
+  });
+
+
+  useEffect(() => {
+    const obj = getFromStorage('the_main_app');
+
+    const { token } = obj;
+
+    fetch('../api/data/user?token=' + token)
+      .then(res => res.json())
+      .then(json => {
+
+        if (json.success) {
+          let valsOut = json.body[0];
+          setValues(valsOut);
+        }
+      });
+  }, []);
 
   const handleChange = (event, newValue) => {
     setQuery(newValue);
@@ -110,14 +224,14 @@ export default function Home() {
 
 
 
-              {docQuery.length===0 ? <Fab variant="extended" className={classes.fixedWidth}  disabled>
+              {docQuery.length === 0 ? <Fab variant="extended" className={classes.fixedWidth} disabled>
                 <GetAppIcon className={classes.extendedIcon} />
                 Download
             </Fab> : <Fab variant="extended" className={classes.fixedWidth}  >
-                <GetAppIcon className={classes.extendedIcon} />
-                Download
+                  <GetAppIcon className={classes.extendedIcon} />
+                  Download
             </Fab>}
-              
+
             </div>
           </div>
         </div>
@@ -141,21 +255,17 @@ export default function Home() {
 
                     <TableRow key={row.title}>
                       <TableCell component="th" scope="row">
-                        <div className={classes.root}>
-                          {/* <LinearProgress variant="query"  /> */}
-                        </div>
+                        {values.firstName[0].toLocaleLowerCase()}{values.lastName.toLocaleLowerCase()}_{row.tag}.pdf
                       </TableCell>
 
                       <TableCell align="right">{row.title}</TableCell>
                       <TableCell align="right">{row.tag}</TableCell>
-                      <TableCell align="right">      <IconButton color="secondary" aria-label="add an alarm">
+                      <TableCell align="right">      <IconButton color="secondary" aria-label="add an alarm" >
                         <EditIcon />
                       </IconButton>
-                        <IconButton color="primary" aria-label="add to shopping cart">
+                        <IconButton color="primary" aria-label="add to shopping cart" onClick={() => createPDF(row.tag, values)}>
                           <DownloadIcon />
                         </IconButton></TableCell>
-
-
                     </TableRow>
                   ))}
                 </TableBody>
