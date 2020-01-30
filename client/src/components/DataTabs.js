@@ -203,6 +203,7 @@ export default function DataTabs() {
   };
 
 const handleSaveData = () =>{
+  console.log("tggjgjhgj");
 
   const obj = getFromStorage('the_main_app');
   const {token} = obj;
@@ -283,7 +284,7 @@ const handleSaveData = () =>{
             <TextField id="standard-search" label="Email" type="Email" value={values.email} style={{ width: 250 }} InputProps={{ readOnly: true, }} />
             <TextField id="standard-search" label="Secondary Email" type="Email" value={values.secondaryEmail} onChange={handleChanges('secondaryEmail')} style={{ width: 250 }} />
 
-            <TextField id="standard-search" label="SSN" type="search" value={values.ssn} onChange={handleChanges('ssn')}  style={{ width:100}}/>
+            <TextField id="standard-search" label="SSN" type="password" value={values.ssn} onChange={handleChanges('ssn')}  style={{ width:100}}/>
             <TextField id="standard-search" label="EIN" type="search" value={values.ein} onChange={handleChanges('ein')} style={{ width:100}} />
 
             <InputLabel className="ml-2 mt-2" style={{ fontSize: 12 }} >Phone Number</InputLabel>
@@ -323,7 +324,7 @@ const handleSaveData = () =>{
 
               <TextField id="standard-search" value={values.shipStreet} onChange={handleChanges('shipStreet')} label="Street Name" type="search" style={{ width: 200 }} />
               <TextField id="standard-search" label="Apt" type="text" value={values.shipApt} onChange={handleChanges('shipApt')} style={{ width: 70 }} />
-              <TextField id="standard-search" label="State" type="text" value={values.bilState} onChange={handleChanges('shipState')} style={{ width: 50 }} />
+              <TextField id="standard-search" label="State" type="text" value={values.shipState} onChange={handleChanges('shipState')} style={{ width: 50 }} />
               <TextField id="standard-search" label="City" type="text" value={values.shipCity} onChange={handleChanges('shipCity')} style={{ width: 100 }} />
               <TextField id="standard-search" label="Zip" type="number" value={values.shipZip} onChange={handleChanges('shipZip')} style={{ width: 80 }} />
               <TextField
@@ -428,7 +429,7 @@ const handleSaveData = () =>{
           <TextField id="standard-search" label="Contact First Name" type="search" value={values.empContLast} onChange={handleChanges('empContLast')} />
         </div>
         <div>
-          <TextField id="standard-search" label="Email" type="Email" style={{ width: 250 }} InputProps={{ readOnly: true, }} value={values.empConEmail} onChange={handleChanges('empConEmail')} />
+          <TextField id="standard-search" label="Email" type="Email" style={{ width: 250 }} value={values.empConEmail} onChange={handleChanges('empConEmail')} />
           <TextField id="standard-search" label="EIN" type="search" value={values.empEIN} onChange={handleChanges('empEIN')} />
           <TextField id="standard-search" label="DUNS" type="search" value={values.empDUNS} onChange={handleChanges('empDUNS')} />
 
@@ -470,7 +471,7 @@ const handleSaveData = () =>{
             <TextField id="standard-search" label="Street Name" type="search" style={{ width: 200 }} value={values.empBillStreet} onChange={handleChanges('empBillStreet')} />
             <TextField id="standard-search" label="Apatartment" type="search" style={{ width: 70 }} value={values.empBillApt} onChange={handleChanges('empBillApt')} />
             <TextField id="standard-search" label="State" type="search" style={{ width: 50 }} value={values.empBillState} onChange={handleChanges('empBillState')} />
-            <TextField id="standard-search" label="City" type="search" style={{ width: 100 }} value={values.empBillCity} onChange={handleChanges('empBillCiy')} />
+            <TextField id="standard-search" label="City" type="search" style={{ width: 100 }} value={values.empBillCity} onChange={handleChanges('empBillCity')} />
             <TextField id="standard-search" label="ZIP" type="search" style={{ width: 80 }} value={values.empBillZip} onChange={handleChanges('empBillZip')} />
             <TextField
               id="outlined-multiline-static"
@@ -568,7 +569,7 @@ const handleSaveData = () =>{
       </TabPanel>
 
 
-      <CircularIntegration color="primary" className={classes.fab} onClick ={()=> handleSaveData()} aria-label="add"/>
+      <CircularIntegration color="primary" className={classes.fab} f ={()=> handleSaveData()} aria-label="add"/>
 
 
       

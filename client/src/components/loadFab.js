@@ -41,12 +41,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CircularIntegration() {
+export default function CircularIntegration(props) {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef();
 
+
+   console.log();
+   
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
   });
@@ -58,6 +61,7 @@ export default function CircularIntegration() {
   }, []);
 
   const handleButtonClick = () => {
+    props.f();
     if (!loading) {
       setSuccess(false);
       setLoading(true);

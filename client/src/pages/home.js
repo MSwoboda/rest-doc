@@ -284,24 +284,21 @@ export default function Home() {
 }
 
 const forms = [
-  { title: 'W2', tag: 'w9' },
+  { title: 'W2', tag: 'w2' },
   { title: 'W4', tag: 'w4' },
   { title: 'W7', tag: 'w7' },
   { title: 'W9', tag: 'w9' },
 
-  { title: '1099 - MISC', tag: '1099misc' },
+  { title: '1099 - MISC', tag: '1099msc' },
   { title: '1099 - C', tag: '1099c' },
-
 
   { title: 'LLC - DE', tag: 'llcde' },
   { title: 'LLC - NJ', tag: 'llcnj' }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
   { title: "LLC - PA", tag: 'llcpa' }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
+  
+  { title: "Learner's Permit", tag: 'dl31' },
 
-  { title: 'Driver License - DE', tag: 'driverde' },
-  { title: 'Driver License - NJ', tag: 'drivernj' },
-  { title: 'Driver License - PA', tag: 'driverpa' },
-
-  { title: 'DL - 180', tag: 'dl180' },
+  { title: 'DL - 31', tag: 'dl31' },
   { title: 'DL - 180C', tag: 'dl180c' },
 
   { title: 'LLC - NJ - Dissolution', tag: 'nollcnj' },
@@ -312,4 +309,3 @@ const forms = [
   { title: 'Biosketch', tag: 'biosketch' },
   { title: 'Resume', tag: 'resume' }
 ];
-
