@@ -60,7 +60,7 @@ class Settings extends Component {
             <Carousel  images={images} 
                         thumb={false}
                         loop={true}
-                        autoplay={3000}
+                        autoplay={10000}
                       />
         </div>
 
