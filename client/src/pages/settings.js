@@ -2,15 +2,37 @@ import React, { Component } from "react";
 // import { Document, Page } from 'react-pdf';
 import { render } from 'react-dom';
 import Carousel from 'react-image-carousel';
- 
+import Container from '@material-ui/core/Container';
+import ImageGallery from 'react-image-gallery';
+
+import Grid from '@material-ui/core/Grid';
+
 
 let images = [
-  '/img/landing1.jpg',
-  '/img/landing2.jpg',
-  '/img/landing3.jpg',
-  '/img/landing4.jpg',
-  '/img/landing5.jpg'
+  '../imgs/w2.jpg',
+  '../imgs/w4.jpg',
+  '../imgs/w7.jpg'
+
 ];
+
+
+// const images = [
+//   {
+//     original: 'https://picsum.photos/id/1018/1000/600/',
+//     sizes:10
+//   },
+//   {
+//     original: '../imgs/w2.jpg',
+//     sizes:10
+
+//   },
+//   {
+//     original: 'https://picsum.photos/id/1019/1000/600/',
+//     sizes:10
+
+//   },
+// ];
+
 
 
 class Settings extends Component {
@@ -19,6 +41,7 @@ class Settings extends Component {
     pageNumber: 1,
   }
  
+
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
   }
@@ -26,16 +49,26 @@ class Settings extends Component {
 
   render() {
 
-    const { pageNumber, numPages } = this.state;
 
     return (
-    
-      <div className="my-carousel">
-      <Carousel images={images} 
-                  thumb={true}
-                  loop={true}
-                  autoplay={3000}/>
-  </div>
+ 
+        <Grid container spacing={3}>
+        <Grid item xs={12}>
+        </Grid>
+        <Grid item xs={6}>
+        <div style={{ height: '10%' }}   className="my-carousel">
+            <Carousel  images={images} 
+                        thumb={false}
+                        loop={true}
+                        autoplay={3000}
+                      />
+        </div>
+
+        </Grid>
+       
+      </Grid>
+
+      
    
     );
   }

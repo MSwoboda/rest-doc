@@ -190,11 +190,6 @@ if (obj && obj.token) {
 
           <Button variant="contained" color="ternary" onClick ={()=> logOut()}>Logout</Button>
 
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
           </Toolbar>
         </AppBar>
 
