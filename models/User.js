@@ -328,6 +328,10 @@ const UserSchema = new Schema({
         type: String,
         default: ''
     },
+    signature:{
+        type: String,
+        default: ''
+    }
 
 });
 

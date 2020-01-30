@@ -188,7 +188,7 @@ if (obj && obj.token) {
               {firstName}  {lastName}
           </Typography>
 
-          <Button variant="contained" onClick ={()=> logOut()}>Logout</Button>
+          <Button variant="contained" color="ternary" onClick ={()=> logOut()}>Logout</Button>
 
             {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

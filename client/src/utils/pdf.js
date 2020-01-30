@@ -23,7 +23,7 @@ export default async function createPDF(type, data) {
         if (mm < 10) {
           mm = '0' + mm;
         } 
-        var today = dd + delim + mm + delim+ yyyy;
+        var today = mm + delim + dd + delim+ yyyy;
         return today;
     }
     if (!type) {
@@ -33,6 +33,9 @@ export default async function createPDF(type, data) {
 
     const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
     const pdfDoc = await PDFDocument.load(existingPdfBytes)
+    const pngImage = await pdfDoc.embedPng( data.signature)
+
+    const pngDims = pngImage.scale(0.4)
 
     const pages = pdfDoc.getPages()
     const firstPage = pages[0]
@@ -162,6 +165,19 @@ export default async function createPDF(type, data) {
                 color: rgb(0, 0, 0),
             })
 
+            firstPage.drawText( getDateString("/") , {
+                x: 480,
+                y: 140,
+                size: 12,
+                color: rgb(0, 0, 0),
+            })
+
+            firstPage.drawImage(pngImage, {
+                x: 120,
+                y: 140,
+                width: pngDims.width,
+                height: pngDims.height,
+              })
 
 
             break;
@@ -243,7 +259,15 @@ export default async function createPDF(type, data) {
                 color: rgb(0, 0, 0),
             })
 
-           
+       
+
+            firstPage.drawImage(pngImage, {
+                x: 140,
+                y: 120,
+                width: pngDims.width,
+                height: pngDims.height,
+              })
+
 
             break;
         case 'w9':
@@ -391,8 +415,10 @@ export default async function createPDF(type, data) {
     const pdfBytes = await pdfDoc.save()
 
 
+   
 
-    download(pdfBytes, "pdf-lib_creation_example.pdf", "application/pdf");
+
+    download(pdfBytes, data.firstName[0].toLocaleLowerCase() +data.lastName.toLocaleLowerCase()+"_"+type+".pdf", "application/pdf");
 
 
 

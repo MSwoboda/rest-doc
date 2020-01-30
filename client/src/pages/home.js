@@ -19,14 +19,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import IconButton from '@material-ui/core/IconButton';
-
-import AlarmIcon from '@material-ui/icons/Alarm';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import EditIcon from '@material-ui/icons/Edit';
-
-import LinearProgress from '@material-ui/core/LinearProgress';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import createPDF from '../utils/pdf';
 
@@ -40,15 +35,6 @@ import {
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -166,7 +152,7 @@ export default function Home() {
     conTwoRelation: '',
     conTwoEmail: '',
     conTwoPhone: '(   )    -    ',
-
+    signature: ''
   });
 
 
@@ -227,63 +213,68 @@ export default function Home() {
               {docQuery.length === 0 ? <Fab variant="extended" className={classes.fixedWidth} disabled>
                 <GetAppIcon className={classes.extendedIcon} />
                 Download
-            </Fab> : <Fab variant="extended" className={classes.fixedWidth}  >
+            </Fab> : <Fab variant="extended" className={classes.fixedWidth} onClick={
+                ()=>{
+                  docQuery.forEach(e => createPDF(e.tag, values))
+                }
+                  }>
                   <GetAppIcon className={classes.extendedIcon} />
-                  Download
+              Download
             </Fab>}
 
             </div>
-          </div>
         </div>
-        <div className="row m-5">
-          <div className="col-12">
-            <Divider className="m-3" />
+      </div>
+      <div className="row m-5">
+        <div className="col-12">
+          <Divider className="m-3" />
 
-            <TableContainer component={Paper}>
+          <TableContainer component={Paper}>
 
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Filename</TableCell>
-                    <TableCell align="right">Template</TableCell>
-                    <TableCell align="right">Contents</TableCell>
-                    <TableCell align="right">Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {docQuery.map(row => (
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Filename</TableCell>
+                  <TableCell align="right">Template</TableCell>
+                  <TableCell align="right">Contents</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {docQuery.map(row => (
 
-                    <TableRow key={row.title}>
-                      <TableCell component="th" scope="row">
-                        {values.firstName[0].toLocaleLowerCase()}{values.lastName.toLocaleLowerCase()}_{row.tag}.pdf
+                  <TableRow key={row.title}>
+                    <TableCell component="th" scope="row">
+                      {values.firstName[0].toLocaleLowerCase()}{values.lastName.toLocaleLowerCase()}_{row.tag}.pdf
                       </TableCell>
 
-                      <TableCell align="right">{row.title}</TableCell>
-                      <TableCell align="right">{row.tag}</TableCell>
-                      <TableCell align="right">      <IconButton color="secondary" aria-label="add an alarm" >
-                        <EditIcon />
-                      </IconButton>
-                        <IconButton color="primary" aria-label="add to shopping cart" onClick={() => createPDF(row.tag, values)}>
-                          <DownloadIcon />
-                        </IconButton></TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                    <TableCell align="right">{row.title}</TableCell>
+                    <TableCell align="right">{(["w9","llcde","llcdl31","dl181"].includes(row.tag))  ? "complete":"partial"}</TableCell>
+                    <TableCell align="right">      <IconButton color="secondary" aria-label="add an alarm" >
+                      < VisibilityIcon />
+                    </IconButton>
+                      <IconButton color="primary" aria-label="add to shopping cart" onClick={() => createPDF(row.tag, values)}>
+                        <DownloadIcon />
+                      </IconButton></TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
 
-          </div>
         </div>
+      </div>
       </div>
 
 
 
-    </Card>
+    </Card >
   );
 }
 
 const forms = [
+
   { title: 'W2', tag: 'w2' },
   { title: 'W4', tag: 'w4' },
   { title: 'W7', tag: 'w7' },
@@ -295,15 +286,21 @@ const forms = [
   { title: 'LLC - DE', tag: 'llcde' },
   { title: 'LLC - NJ', tag: 'llcnj' }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
   { title: "LLC - PA", tag: 'llcpa' }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
-  
-  { title: "Learner's Permit", tag: 'dl31' },
 
-  { title: 'DL - 31', tag: 'dl31' },
-  { title: 'DL - 180C', tag: 'dl180c' },
+  { title: "Learner's Permit", tag: 'dl31' },
+  { title: "Driver's License", tag: 'dl180' },
+
+  { title: 'DL-31', tag: 'dl31' },
+  { title: 'DL-180C', tag: 'dl180' },
 
   { title: 'LLC - NJ - Dissolution', tag: 'nollcnj' },
   { title: 'LLC - DE - Dissolution', tag: 'nollcde' },
   { title: 'LLC - PA - Dissolution', tag: 'nollcpa' },
+
+  { title: "Employee's Withholding Allowance", tag: 'w2' },
+  { title: "Employee's Withholding", tag: 'w4' },
+  { title: "IRS Individual Taxpayer Identification Number", tag: 'w7' },
+  { title: "Request for Taxpayer. Identification Number", tag: 'w9' },
 
   { title: 'Letter of Intent', tag: 'loi' },
   { title: 'Biosketch', tag: 'biosketch' },
