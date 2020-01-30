@@ -385,12 +385,21 @@ export default async function createPDF(type, data) {
       
 
             firstPage.drawText(data.firstName +"  " +data.lastName, {
-                x: 360,
-                y: 375,
+                x: 320,
+                y: 320,
                 size: 12,
                 color: rgb(0, 0, 0),
             })
 
+            
+            firstPage.drawImage(pngImage, {
+      
+
+                x: 360,
+                y: 375,
+                width: pngDims.width,
+                height: pngDims.height,
+              })
 
             break;
         case 'dl31':
