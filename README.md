@@ -6,14 +6,28 @@ Rest Docs is a full-stack MERN (MongoDB, Express, ReactJS, NodeJS) application, 
 
 See deployed application at [reactautofill.herokuapp.com](https://reactautofill.herokuapp.com/)
 
-## Register User
+### Register User
+
+![alt text](https://github.com/MSwoboda/rest-doc/blob/master/imgs/register.gif)
+
+### Data Entry
+
+![alt text](https://github.com/MSwoboda/rest-doc/blob/master/imgs/data.gif)
 
 
+### Signature 
 
-![alt text](https://github.com/MSwoboda/rest-doc/blob/master/imgs/register.gif "Logo Title Text 1")
-
-
-
-## Local Installation
+![alt text](https://github.com/MSwoboda/rest-doc/blob/master/imgs/sign.gif)
 
 
+### Get Docs
+
+![alt text](https://github.com/MSwoboda/rest-doc/blob/master/imgs/gen.gif)
+
+
+### Local Installation
+
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
