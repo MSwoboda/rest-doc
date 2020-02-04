@@ -287,22 +287,22 @@ const forms = [
   { title: 'LLC - NJ', tag: 'llcnj' }, //https://www.state.nj.us/treasury/revenue/pdforms/pubrec.pdf
   { title: "LLC - PA", tag: 'llcpa' }, //https://www.dos.pa.gov/BusinessCharities/Business/RegistrationForms/Documents/Updated%202017%20Registration%20Forms/Domestic%20Limited%20Liability%20Company/15-8821%20Cert%20of%20Org-Dom%20LLC.pdf
 
-  { title: "Learner's Permit", tag: 'dl31' },
-  { title: "Driver's License", tag: 'dl180' },
+  // { title: "Learner's Permit", tag: 'dl31' },
+  // { title: "Driver's License", tag: 'dl180' },
 
-  { title: 'DL-31', tag: 'dl31' },
-  { title: 'DL-180C', tag: 'dl180' },
+  // { title: 'DL-31', tag: 'dl31' },
+  // { title: 'DL-180C', tag: 'dl180' },
 
-  { title: 'LLC - NJ - Dissolution', tag: 'nollcnj' },
-  { title: 'LLC - DE - Dissolution', tag: 'nollcde' },
-  { title: 'LLC - PA - Dissolution', tag: 'nollcpa' },
+  // { title: 'LLC - NJ - Dissolution', tag: 'nollcnj' },
+  // { title: 'LLC - DE - Dissolution', tag: 'nollcde' },
+  // { title: 'LLC - PA - Dissolution', tag: 'nollcpa' },
 
   { title: "Employee's Withholding Allowance", tag: 'w2' },
   { title: "Employee's Withholding", tag: 'w4' },
   { title: "IRS Individual Taxpayer Identification Number", tag: 'w7' },
   { title: "Request for Taxpayer. Identification Number", tag: 'w9' },
 
-  { title: 'Letter of Intent', tag: 'loi' },
-  { title: 'Biosketch', tag: 'biosketch' },
-  { title: 'Resume', tag: 'resume' }
+  // { title: 'Letter of Intent', tag: 'loi' },
+  // { title: 'Biosketch', tag: 'biosketch' },
+  // { title: 'Resume', tag: 'resume' }
 ];
