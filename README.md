@@ -1,4 +1,4 @@
-# rest-doc
+# Rest Docs
  
 Rest Docs is a full-stack MERN (MongoDB, Express, ReactJS, NodeJS) application, which automatically generates prepopulated forms based on saved user data. The interfaces is built using Material UI. 
 
